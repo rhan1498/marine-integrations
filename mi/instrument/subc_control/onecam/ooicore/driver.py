@@ -101,6 +101,21 @@ class ProtocolEvent(BaseEnum):
     EXIT_INTERVAL_TRIGGER_MODE = 'DRIVER_EVENT_EXIT_INTERVAL_TRIGGER_MODE'
     RESET_EEPROM = 'DRIVER_EVENT_RESET_EEPROM'
 
+    LASER_1_ON = "DRIVER_EVENT_LASER_1_ON"
+    LASER_2_ON = "DRIVER_EVENT_LASER_2_ON"
+    LASER_BOTH_ON = "DRIVER_EVENT_LASER_BOTH_ON"
+    LASER_1_OFF = "DRIVER_EVENT_LASER_1_OFF"
+    LASER_2_OFF = "DRIVER_EVENT_LASER_2_OFF"
+    LASER_BOTH_OFF = "DRIVER_EVENT_LASER_BOTH_OFF"
+
+    LAMP_ON = "DRIVER_EVENT_LAMP_ON"
+    LAMP_OFF = "DRIVER_EVENT_LAMP_OFF"
+    SET_PRESET = "DRIVER_EVENT_SET_PRESET"
+    GOTO_PRESET = "DRIVER_EVENT_GOTO_PRESET"
+
+    EXECUTE_AUTO_CAPTURE = 'DRIVER_EVENT_EXECUTE_AUTO_CAPTURE'
+    STOP_CAPTURE = 'DRIVER_EVENT_STOP_CAPTURE'
+
 
 class Capability(BaseEnum):
     """
@@ -124,6 +139,19 @@ class Capability(BaseEnum):
     ENTER_RECORD_INTERVAL = ProtocolEvent.ENTER_RECORD_INTERVAL
     EXTERNAL_FLASH_ENABLE = ProtocolEvent.EXTERNAL_FLASH_ENABLE
     EXTERNAL_FLASH_DISABLE = ProtocolEvent.EXTERNAL_FLASH_DISABLE
+
+    LASER_1_ON = ProtocolEvent.LASER_1_ON
+    LASER_2_ON = ProtocolEvent.LASER_2_ON
+    LASER_BOTH_ON = ProtocolEvent.LASER_BOTH_ON
+    LASER_1_OFF = ProtocolEvent.LASER_1_OFF
+    LASER_2_OFF = ProtocolEvent.LASER_2_OFF
+    LASER_BOTH_OFF = ProtocolEvent.LASER_BOTH_OFF
+
+    LAMP_ON = ProtocolEvent.LAMP_ON
+    LAMP_OFF = ProtocolEvent.LAMP_OFF
+
+    SET_PRESET = ProtocolEvent.SET_PRESET
+    GOTO_PRESET = ProtocolEvent.GOTO_PRESET
 
 
 class Command(BaseEnum):
@@ -154,22 +182,56 @@ class Command(BaseEnum):
     EXIT_INTERVAL_TRIGGER_MODE = '$G'   # $I in the manual which is duplicate with Laser On Off Cmd
     RESET_EEPROM = '$^'
 
+    OPEN = 'open'
+    CLOSE = 'close'
+    STREAMING = 'streaming'
+    GET_PAN_TILT = 'get_pan_tilt'
+    SET_PAN_TILT = 'get_pan_tilt'
+    GET_LIGHTS = 'get_lights'
+    SET_LIGHTS = 'set_lights'
+    CAMERA = 'camrera'
+
+    SET_PRESET = 'set_preset'
+    GO_TO_PRESET = 'go_to_preset'
+    LAMP_ON = 'lamp_on'
+    LAMP_OFF = 'lamp_off'
+    LASER_1_ON = 'laser_1_on'
+    LASER_1_OFF = 'laser_1_off'
+    LASER_2_ON = 'laser_2_on'
+    LASER_2_OFF = 'laser_2_off'
+    LASER_BOTH_ON = 'laser_both_on'
+    LASER_BOTH_OFF = 'laser_both_off'
+    EXECUTE_AUTO_CAPTURE = 'execute_auto_capture'
+
+
 
 class Parameter(DriverParameter):
     """
     Device specific parameters for CAMHD.
 
     """
-    SERIAL_BAUD_RATE = 'SerialBaudRate'
-    BYTE_SIZE = 'ByteSize'
-    PARITY = 'Parity'
-    STOP_BIT = 'StopBit'
-    DATA_FLOW_CONTROL = 'DataFlowControl'
-    INPUT_BUFFER_SIZE = 'InputBufferSize'
-    OUTPUT_BUFFER_SIZE = 'OutputBufferSize'
-    SLEEP_INTERVAL = 'SleepInterval'
-    RECORD_INTERVAL = 'RecordInterval'
-    PICTURE_INTERVAL = 'PictureInterval'
+    SERIAL_BAUD_RATE = 'serial_baud_rate'
+    BYTE_SIZE = 'byte_size'
+    PARITY = 'parity'
+    STOP_BIT = 'stop_bit'
+    DATA_FLOW_CONTROL = 'data_flow_control'
+    INPUT_BUFFER_SIZE = 'input_buffer_size'
+    OUTPUT_BUFFER_SIZE = 'output_buffer_size'
+    SLEEP_INTERVAL = 'sleep_interval'
+    RECORD_INTERVAL = 'record_interval'
+    PICTURE_INTERVAL = 'picture_interval'
+
+    END_POINT = 'end_point'
+    PAN = 'pan'
+    TILT = 'tilt'
+    SPEED = 'speed'
+    LIGHT_LEVEL = 'light_level'
+    ZOOM = 'zoom'
+    SAMPLE_INTERVAL = 'sample_interval'
+    ACQUIRE_STATUS_INTERVAL = 'acquire_status_interval'
+    VIDEO_FORWARDING = 'video_forwarding'
+    VIDEO_FORWARDING_TIMEOUT = 'video_forwarding_timeout'
+    AUTO_CAPTURE_DURATION = 'auto_capture_duration'
 
 
 class Prompt(BaseEnum):
@@ -299,6 +361,28 @@ class Protocol(CommandResponseInstrumentProtocol):
         self._protocol_fsm.add_handler(ProtocolState.COMMAND, ProtocolEvent.ENABLE_EXTERNAL_TRIGGER, self._handler_command_enable_external_trigger)
         self._protocol_fsm.add_handler(ProtocolState.COMMAND, ProtocolEvent.EXIT_INTERVAL_TRIGGER_MODE, self._handler_command_exit_interval_trigger_mode)
         self._protocol_fsm.add_handler(ProtocolState.COMMAND, ProtocolEvent.RESET_EEPROM, self._handler_command_reset_eeprom)
+
+        self._protocol_fsm.add_handler(ProtocolState.COMMAND, ProtocolEvent.LASER_1_ON,
+                                       self._handler_command_laser1_on)
+        self._protocol_fsm.add_handler(ProtocolState.COMMAND, ProtocolEvent.LASER_2_ON,
+                                       self._handler_command_laser2_on)
+        self._protocol_fsm.add_handler(ProtocolState.COMMAND, ProtocolEvent.LASER_BOTH_ON,
+                                       self._handler_command_laser_both_on)
+        self._protocol_fsm.add_handler(ProtocolState.COMMAND, ProtocolEvent.LASER_1_OFF,
+                                       self._handler_command_laser1_off)
+        self._protocol_fsm.add_handler(ProtocolState.COMMAND, ProtocolEvent.LASER_2_OFF,
+                                       self._handler_command_laser2_off)
+        self._protocol_fsm.add_handler(ProtocolState.COMMAND, ProtocolEvent.LASER_BOTH_OFF,
+                                      self._handler_command_laser_both_off)
+        self._protocol_fsm.add_handler(ProtocolState.COMMAND, ProtocolEvent.SET_PRESET,
+                                       self._handler_command_set_preset)
+        self._protocol_fsm.add_handler(ProtocolState.COMMAND, ProtocolEvent.GOTO_PRESET,
+                                       self._handler_command_goto_preset)
+        self._protocol_fsm.add_handler(ProtocolState.COMMAND, ProtocolEvent.STOP_CAPTURE,
+                                       self._handler_command_stop_capture)
+        self._protocol_fsm.add_handler(ProtocolState.COMMAND, ProtocolEvent.EXECUTE_AUTO_CAPTURE,
+                                       self._handler_command_execute_auto_capture)
+
 
         self._protocol_fsm.add_handler(ProtocolState.DIRECT_ACCESS, ProtocolEvent.ENTER, self._handler_direct_access_enter)
         self._protocol_fsm.add_handler(ProtocolState.DIRECT_ACCESS, ProtocolEvent.EXIT, self._handler_direct_access_exit)
@@ -512,6 +596,126 @@ class Protocol(CommandResponseInstrumentProtocol):
                              startup_param=True,
                              direct_access=False,
                              default_value=800)
+
+        self._param_dict.add(Parameter.END_POINT,
+                             r'End Point = (\d+)',
+                             lambda match: int(match.group(1)),
+                             int,
+                             type=ParameterDictType.INT,
+                             display_name="End Point",
+                             startup_param=True,
+                             direct_access=False,
+                             default_value=800)
+        self._param_dict.add(Parameter.END_POINT,
+                             r'End Point = (\d+)',
+                             lambda match: int(match.group(1)),
+                             int,
+                             type=ParameterDictType.INT,
+                             display_name="End Point",
+                             startup_param=True,
+                             direct_access=False,
+                             default_value=800)
+
+        self._param_dict.add(Parameter.PAN,
+                             r'Pan = (\d+)',
+                             lambda match: int(match.group(1)),
+                             int,
+                             type=ParameterDictType.INT,
+                             display_name="Pan",
+                             startup_param=True,
+                             direct_access=False,
+                             default_value=0)
+
+        self._param_dict.add(Parameter.TILT,
+                             r'Tilt = (\d+)',
+                             lambda match: int(match.group(1)),
+                             int,
+                             type=ParameterDictType.INT,
+                             display_name="Tilt",
+                             startup_param=True,
+                             direct_access=False,
+                             default_value=0)
+
+        self._param_dict.add(Parameter.SPEED,
+                             r'Speed = (\d+)',
+                             lambda match: int(match.group(1)),
+                             int,
+                             type=ParameterDictType.INT,
+                             display_name="Speed",
+                             startup_param=True,
+                             direct_access=False,
+                             default_value=0)
+
+        self._param_dict.add(Parameter.LIGHT_LEVEL,
+                             r'Light Level = (\d+)',
+                             lambda match: int(match.group(1)),
+                             int,
+                             type=ParameterDictType.INT,
+                             display_name="Light Level",
+                             startup_param=True,
+                             direct_access=False,
+                             default_value=0)
+
+        self._param_dict.add(Parameter.ZOOM,
+                             r'Zoom = (\d+)',
+                             lambda match: int(match.group(1)),
+                             int,
+                             type=ParameterDictType.INT,
+                             display_name="Zoom",
+                             startup_param=True,
+                             direct_access=False,
+                             default_value=0)
+
+        self._param_dict.add(Parameter.SAMPLE_INTERVAL,
+                             r'Sample Interval = (\d{2}:\d{2}:\d{2})',
+                             lambda match: str(match.group(1)),
+                             int,
+                             type=ParameterDictType.STRING,
+                             display_name="Sample Interval",
+                             startup_param=True,
+                             direct_access=False,
+                             default_value='00:01:00')
+
+        self._param_dict.add(Parameter.ACQUIRE_STATUS_INTERVAL,
+                             r'Acquire Status Interval = (\d{2}:\d{2}:\d{2})',
+                             lambda match: str(match.group(1)),
+                             int,
+                             type=ParameterDictType.STRING,
+                             display_name="Acquire Status Interval",
+                             startup_param=True,
+                             direct_access=False,
+                             default_value='00:00:00')
+
+        self._param_dict.add(Parameter.AUTO_CAPTURE_DURATION,
+                             r'Acquire Status Interval = (\d{2}:\d{2}:\d{2})',
+                             lambda match: str(match.group(1)),
+                             int,
+                             type=ParameterDictType.STRING,
+                             display_name="Auto Capture Duration",
+                             startup_param=True,
+                             direct_access=False,
+                             default_value='00:01:00')
+
+        self._param_dict.add(Parameter.VIDEO_FORWARDING_TIMEOUT,
+                             r'Video Forwarding Timeout = (\d{2}:\d{2}:\d{2})',
+                             lambda match: str(match.group(1)),
+                             int,
+                             type=ParameterDictType.STRING,
+                             display_name="Video Forwarding Timeout",
+                             startup_param=True,
+                             direct_access=False,
+                             default_value='00:00:00')
+
+        self._param_dict.add(Parameter.VIDEO_FORWARDING,
+                             r'Video Forwarding  = ([Y|N])',
+                             lambda match: str(match.group(1)),
+                             int,
+                             type=ParameterDictType.STRING,
+                             display_name="Video Forwarding",
+                             startup_param=True,
+                             direct_access=False,
+                             default_value='N')
+
 
     def _got_chunk(self, chunk):
         """
@@ -1085,6 +1289,104 @@ class Protocol(CommandResponseInstrumentProtocol):
             raise InstrumentProtocolException("Instrument not responding to Reset EEPROM cmd.")
         return None, (None, None)
 
+    def _handler_command_laser(self, command, light, *args, **kwargs):
+
+        """
+        Command the laser
+        """
+        next_state = None
+
+        kwargs['timeout'] = 2
+
+        try:
+            self._do_cmd_resp(command, light, **kwargs)
+
+        except Exception as e:
+            raise InstrumentParameterException(
+                'InstrumentProtocolException in _do_cmd_resp()' + str(e))
+
+        return next_state, (None, None)
+
+    def _handler_command_laser1_on(self, *args, **kwargs):
+        """
+        Turn laser 1 on
+        """
+        return self._handler_command_laser(Command.LASER_ON, '\x01', *args, **kwargs)
+
+    def _handler_command_laser1_off(self, *args, **kwargs):
+        """
+        Turn laser 1 off
+        """
+        return self._handler_command_laser(Command.LASER_OFF, '\x01', *args, **kwargs)
+
+    def _handler_command_laser2_on(self, *args, **kwargs):
+        """
+        Turn laser 2 on
+        """
+        return self._handler_command_laser(Command.LASER_ON, '\x02', *args, **kwargs)
+
+    def _handler_command_laser2_off(self, *args, **kwargs):
+        """
+        Turn laser 2 off
+        """
+        return self._handler_command_laser(Command.LASER_OFF, '\x02', *args, **kwargs)
+
+    def _handler_command_laser_both_on(self, *args, **kwargs):
+        """
+        Turn both lasers on
+        """
+        return self._handler_command_laser(Command.LASER_ON, '\x03', *args, **kwargs)
+
+    def _handler_command_laser_both_off(self, *args, **kwargs):
+        """
+        Turn both lasers off
+        """
+        return self._handler_command_laser(Command.LASER_OFF, '\x03', *args, **kwargs)
+
+    def _handler_command_laser_both_off(self, *args, **kwargs):
+        """
+        Turn both lasers off
+        """
+        return self._handler_command_laser(Command.LASER_OFF, '\x03', *args, **kwargs)
+
+    def _handler_command_set_preset(self, *args, **kwargs):
+        """
+        Set preset position
+        """
+        next_state = None
+
+        return next_state, (None, None)
+
+    def _handler_command_start_capture (self, *args, **kwargs):
+        """
+        Start Auto Capture
+        """
+        next_state = None
+
+    def _handler_command_stop_capture (self, *args, **kwargs):
+        """
+        Stop Auto Capture
+        """
+        next_state = None
+
+    def _handler_command_execute_auto_capture (self, *args, **kwargs):
+        """
+        Execute Auto Capture
+        """
+        next_state = None
+
+    def _handler_command_stop_forward (self, *args, **kwargs):
+        """
+        Stop Video Forwarding
+        """
+        next_state = None
+
+    def _handler_command_goto_preset(self, *args, **kwargs):
+        """
+        Go to the preset position
+        """
+        next_state = None
+
     def _parse_take_picture(self, response, prompt):
         """
         Parse handler for CAMHD commands.
@@ -1118,18 +1420,6 @@ class Protocol(CommandResponseInstrumentProtocol):
         """
         if prompt != Prompt.ENTER_SLEEP_INTERVAL_RESP:
             raise InstrumentProtocolException('CAMHD Enter Sleep Interval command not recognized: %s.' % response)
-
-        return response
-
-    def _parse_enter_record_interval(self, response, prompt):
-        """
-        Parse handler for CAMHD commands.
-        @param response command response string.
-        @param prompt prompt following command response.
-        @throws InstrumentProtocolException if CAMHD command misunderstood.
-        """
-        if prompt != Prompt.ENTER_RECORD_INTERVAL_RESP:
-            raise InstrumentProtocolException('CAMHD Enter Record Interval command not recognized: %s.' % response)
 
         return response
 
