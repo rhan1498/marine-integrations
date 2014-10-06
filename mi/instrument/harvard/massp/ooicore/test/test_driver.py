@@ -24,7 +24,6 @@ import ntplib
 import gevent
 from nose.plugins.attrib import attr
 from mock import Mock
-#from pyon.core.exception import ResourceError, BadRequest
 from mi.core.exceptions import ResourceError, BadRequest
 from mi.core.exceptions import InstrumentCommandException
 from mi.core.instrument.port_agent_client import PortAgentClient, PortAgentPacket
@@ -36,7 +35,6 @@ from mi.idk.unit_test import InstrumentDriverQualificationTestCase
 from mi.idk.unit_test import DriverTestMixin
 from mi.core.instrument.instrument_driver import DriverConnectionState, DriverConfigKey, ResourceAgentState
 from mi.core.instrument.instrument_driver import DriverProtocolState
-#from ion.agents.port.port_agent_process import PortAgentProcess
 from mi.core.port_agent_process import PortAgentProcess
 
 from mi.instrument.harvard.massp.ooicore.driver import InstrumentDriver, SlaveProtocol, NEWLINE
