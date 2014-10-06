@@ -19,7 +19,7 @@ import json
 import copy
 
 from mock import patch, Mock
-#from pyon.core.bootstrap import CFG
+
 from mi.core.bootstrap import CFG
 
 from gevent import monkey; monkey.patch_all()
