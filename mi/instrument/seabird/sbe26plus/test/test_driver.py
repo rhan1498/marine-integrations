@@ -74,8 +74,7 @@ from mi.instrument.seabird.sbe26plus.driver import SBE26plusDeviceCalibrationDat
 from mi.instrument.seabird.sbe26plus.driver import SBE26plusDeviceStatusDataParticleKey
 from mi.core.instrument.chunker import StringChunker
 from mi.core.exceptions import InstrumentCommandException
-# from pyon.agent.agent import ResourceAgentEvent
-# from pyon.agent.agent import ResourceAgentState
+
 from mi.core.instrument.instrument_driver import ResourceAgentEvent
 from mi.core.instrument.instrument_driver import ResourceAgentState
 
