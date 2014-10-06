@@ -61,7 +61,8 @@ from mi.core.instrument.instrument_driver import DriverProtocolState
 from mi.core.instrument.port_agent_client import PortAgentClient
 
 from mi.idk.comm_config import ConfigTypes
-from ion.agents.port.port_agent_process import PortAgentProcess
+#from ion.agents.port.port_agent_process import PortAgentProcess
+from mi.core.port_agent_process import PortAgentProcess
 from mi.idk.unit_test import InstrumentDriverTestCase, LOCALHOST, ParameterTestConfigKey
 
 from mi.idk.unit_test import InstrumentDriverIntegrationTestCase
@@ -75,7 +76,8 @@ from mi.instrument.teledyne.workhorse.vadcp.driver import TeledyneParameter2
 from mi.core.exceptions import InstrumentCommandException
 from mi.core.common import BaseEnum
 
-from pyon.core.exception import ResourceError
+#from pyon.core.exception import ResourceError
+from mi.core.exceptions import ResourceError
 
 # ##
 # Driver parameters for tests

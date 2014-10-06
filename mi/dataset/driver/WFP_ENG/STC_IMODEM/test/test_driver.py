@@ -38,7 +38,7 @@ from mi.dataset.parser.wfp_eng__stc_imodem_particles import WfpEngStcImodemEngin
 from mi.dataset.parser.wfp_eng__stc_imodem_particles import WfpEngStcImodemStatusTelemeteredDataParticle
 from mi.dataset.parser.wfp_eng__stc_imodem_particles import WfpEngStcImodemStartTelemeteredDataParticle
 from mi.dataset.parser.wfp_eng__stc_imodem_particles import WfpEngStcImodemEngineeringTelemeteredDataParticle
-from pyon.agent.agent import ResourceAgentState
+from mi.core.instrument.instrument_agent import ResourceAgentState
 from interface.objects import ResourceAgentErrorEvent
 
 RESOURCE_PATH = os.path.join(Config().base_dir(), 'mi', 'dataset', 'driver', 'WFP_ENG', 'STC_IMODEM', 'resource')

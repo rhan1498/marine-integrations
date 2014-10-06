@@ -12,7 +12,8 @@
 __author__ = 'Carlos Rueda'
 __license__ = 'Apache 2.0'
 
-from pyon.public import log
+#from pyon.public import log
+from mi.core.log import log
 
 import unittest
 import random
@@ -25,22 +26,31 @@ from mock import patch
 
 # ION imports.
 #from interface.objects import StreamQuery
-from interface.services.icontainer_agent import ContainerAgentClient
-from interface.services.dm.ipubsub_management_service import PubsubManagementServiceClient
+# from interface.services.icontainer_agent import ContainerAgentClient
+# from interface.services.dm.ipubsub_management_service import PubsubManagementServiceClient
 #from pyon.public import StreamSubscriberRegistrar
 #from prototype.sci_data.stream_defs import ctd_stream_definition
-from pyon.agent.agent import ResourceAgentClient
+#from pyon.agent.agent import ResourceAgentClient
+from mi.core.agent import ResourceAgentClient
 from interface.objects import AgentCommand
 from mi.core.unit_test import MiIntTestCase
-from pyon.util.context import LocalContextMixin
-from pyon.public import CFG
-from pyon.event.event import EventSubscriber, EventPublisher
-from pyon.core.exception import InstParameterError
+#from pyon.util.context import LocalContextMixin
+#from mi.core.util.context import LocalContextMixin
+#from pyon.public import CFG
 
-from ion.agents.port.logger_process import EthernetDeviceLogger
-from ion.agents.instrument.instrument_agent import InstrumentAgentState
-from ion.agents.instrument.driver_int_test_support import DriverIntegrationTestSupport
-from ion.agents.instrument.taxy_factory import get_taxonomy
+
+#from pyon.event.event import EventSubscriber, EventPublisher
+
+#from pyon.core.exception import InstParameterError
+from mi.core.exceptions import InstParameterError
+
+#from ion.agents.port.logger_process import EthernetDeviceLogger
+# from ion.agents.instrument.instrument_agent import InstrumentAgentState
+# from ion.agents.instrument.driver_int_test_support import DriverIntegrationTestSupport
+# from ion.agents.instrument.taxy_factory import get_taxonomy
+
+from mi.core.instrument.instrument_agent import InstrumentAgentState
+
 
 # MI imports.
 from mi.instrument.uw.res_probe.ooicore.common import TrhphParameter
@@ -75,18 +85,18 @@ IA_CLS = 'InstrumentAgent'
 
 
 
-class FakeProcess(LocalContextMixin):
-    """
-    A fake process used because the test case is not an ion process.
-    """
-    name = ''
-    id=''
-    process_type = ''
+# class FakeProcess(LocalContextMixin):
+#     """
+#     A fake process used because the test case is not an ion process.
+#     """
+#     name = ''
+#     id=''
+#     process_type = ''
 
 
 @unittest.skip("depricated tests")
 @attr('HARDWARE', group='mi')
-@patch.dict(CFG, {'endpoint':{'receive':{'timeout': 60}}})
+#@patch.dict(CFG, {'endpoint':{'receive':{'timeout': 60}}})
 class TestInstrumentAgentWithTrhph(TrhphTestCase, MiIntTestCase):
     """
     R2 instrument agent tests with the TRHPH driver.
@@ -103,12 +113,12 @@ class TestInstrumentAgentWithTrhph(TrhphTestCase, MiIntTestCase):
 
         TrhphTestCase.setUp(self)
 
-        self._support = DriverIntegrationTestSupport(DRV_MOD,
-                                                     DRV_CLS,
-                                                     self.device_address,
-                                                     self.device_port,
-                                                     DELIM,
-                                                     WORK_DIR)
+        # self._support = DriverIntegrationTestSupport(DRV_MOD,
+        #                                              DRV_CLS,
+        #                                              self.device_address,
+        #                                              self.device_port,
+        #                                              DELIM,
+        #                                              WORK_DIR)
         # Start port agent, add stop to cleanup.
         self._pagent = None
         self._start_pagent()
@@ -150,17 +160,17 @@ class TestInstrumentAgentWithTrhph(TrhphTestCase, MiIntTestCase):
         # Start instrument agent.
         self._ia_pid = None
         log.debug("TestInstrumentAgentWithTrhph.setup(): starting IA.")
-        container_client = ContainerAgentClient(node=self.container.node,
-                                                name=self.container.name)
-        self._ia_pid = container_client.spawn_process(name=IA_NAME,
-                                                      module=IA_MOD,
-                                                      cls=IA_CLS,
-                                                      config=agent_config)
-        log.info('Agent pid=%s.', str(self._ia_pid))
-
-        # Start a resource agent client to talk with the instrument agent.
-        self._ia_client = ResourceAgentClient(IA_RESOURCE_ID, process=FakeProcess())
-        log.info('Got ia client %s.', str(self._ia_client))
+        # container_client = ContainerAgentClient(node=self.container.node,
+        #                                         name=self.container.name)
+        # self._ia_pid = container_client.spawn_process(name=IA_NAME,
+        #                                               module=IA_MOD,
+        #                                               cls=IA_CLS,
+        #                                               config=agent_config)
+        # log.info('Agent pid=%s.', str(self._ia_pid))
+        #
+        # # Start a resource agent client to talk with the instrument agent.
+        # self._ia_client = ResourceAgentClient(IA_RESOURCE_ID, process=FakeProcess())
+        # log.info('Got ia client %s.', str(self._ia_client))
 
         # make sure the driver is stopped
         self.addCleanup(self._reset)
@@ -190,7 +200,7 @@ class TestInstrumentAgentWithTrhph(TrhphTestCase, MiIntTestCase):
         """
         """
         # Create a pubsub client to create streams.
-        pubsub_client = PubsubManagementServiceClient(node=self.container.node)
+        #pubsub_client = PubsubManagementServiceClient(node=self.container.node)
 
         # A callback for processing subscribed-to data.
         def consume_data(message, headers):
@@ -200,40 +210,40 @@ class TestInstrumentAgentWithTrhph(TrhphTestCase, MiIntTestCase):
                 self._async_data_result.set()
 
         # Create a stream subscriber registrar to create subscribers.
-        subscriber_registrar = StreamSubscriberRegistrar(process=self.container,
-                                                         container=self.container)
+        # subscriber_registrar = StreamSubscriberRegistrar(process=self.container,
+        #                                                  container=self.container)
 
         # Create streams and subscriptions for each stream named in driver.
         self._stream_config = {}
         self._data_subscribers = []
-        for stream_name in PACKET_CONFIG:
-            stream_def = ctd_stream_definition(stream_id=None)
-            stream_def_id = pubsub_client.create_stream_definition(
-                                                    container=stream_def)
-            stream_id = pubsub_client.create_stream(
-                        name=stream_name,
-                        stream_definition_id=stream_def_id,
-                        original=True,
-                        encoding='ION R2')
+        #for stream_name in PACKET_CONFIG:
+            # stream_def = ctd_stream_definition(stream_id=None)
+            # stream_def_id = pubsub_client.create_stream_definition(
+            #                                         container=stream_def)
+            # stream_id = pubsub_client.create_stream(
+            #             name=stream_name,
+            #             stream_definition_id=stream_def_id,
+            #             original=True,
+            #             encoding='ION R2')
 
-            taxy = get_taxonomy(stream_name)
-            stream_config = dict(
-                id=stream_id,
-                taxonomy=taxy.dump()
-            )
-            self._stream_config[stream_name] = stream_config
-
-            # Create subscriptions for each stream.
-            exchange_name = '%s_queue' % stream_name
-            sub = subscriber_registrar.create_subscriber(exchange_name=exchange_name,
-                                                         callback=consume_data)
-            self._listen(sub)
-            self._data_subscribers.append(sub)
-            query = StreamQuery(stream_ids=[stream_id])
-            sub_id = pubsub_client.create_subscription(
-                                query=query, exchange_name=exchange_name,
-                                exchange_point='science_data')
-            pubsub_client.activate_subscription(sub_id)
+            # taxy = get_taxonomy(stream_name)
+            # stream_config = dict(
+            #     id=stream_id,
+            #     taxonomy=taxy.dump()
+            #)
+            # self._stream_config[stream_name] = stream_config
+            #
+            # # Create subscriptions for each stream.
+            # exchange_name = '%s_queue' % stream_name
+            # sub = subscriber_registrar.create_subscriber(exchange_name=exchange_name,
+            #                                              callback=consume_data)
+            # self._listen(sub)
+            # self._data_subscribers.append(sub)
+            # query = StreamQuery(stream_ids=[stream_id])
+            # sub_id = pubsub_client.create_subscription(
+            #                     query=query, exchange_name=exchange_name,
+            #                     exchange_point='science_data')
+            # pubsub_client.activate_subscription(sub_id)
 
     def _listen(self, sub):
         """
@@ -265,9 +275,9 @@ class TestInstrumentAgentWithTrhph(TrhphTestCase, MiIntTestCase):
             if self._no_events and self._no_events == len(self._event_received):
                 self._async_event_result.set()
 
-        event_sub = EventSubscriber(event_type="DeviceEvent", callback=consume_event)
-        event_sub.start()
-        self._event_subscribers.append(event_sub)
+        # event_sub = EventSubscriber(event_type="DeviceEvent", callback=consume_event)
+        # event_sub.start()
+        #self._event_subscribers.append(event_sub)
 
     def _stop_event_subscribers(self):
         """

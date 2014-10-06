@@ -15,9 +15,9 @@ import datetime
 import json
 from nose.plugins.attrib import attr
 from mi.core.log import get_logger ; log = get_logger()
-from pyon.util.containers import DotDict
-from pyon.util.unit_test import IonUnitTestCase
+from mi.core.containers import DotDict
 from mi.core.unit_test import MiUnitTestCase
+from mi.core.unit_test import IonUnitTestCase
 
 from mock import Mock
 

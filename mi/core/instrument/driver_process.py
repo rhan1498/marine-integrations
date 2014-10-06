@@ -10,6 +10,7 @@
 __author__ = 'Edward Hunter'
 __license__ = 'Apache 2.0'
 
+
 import logging
 from threading import Thread
 from subprocess import Popen
@@ -19,10 +20,18 @@ import os
 import sys
 import time
 import traceback
+from mi.core.common import BaseEnum
 from mi.core.exceptions import InstrumentException, InstrumentCommandException
 from mi.core.instrument.instrument_driver import DriverAsyncEvent
 
 from ooi.logging import log
+
+class DriverProcessType(BaseEnum):
+    """
+    Base states for driver launcher types.
+    """
+    PYTHON_MODULE = 'ZMQPyClassDriverLauncher'
+    EGG = 'ZMQEggDriverLauncher'
 
 class DriverProcess(object):
     """

@@ -36,7 +36,7 @@ from mi.dataset.parser.parad_k_stc_imodem import \
     Parad_k_stc_imodemDataParticle, \
     Parad_k_stc_imodemRecoveredDataParticle
 
-from pyon.agent.agent import ResourceAgentState
+from mi.core.instrument.instrument_agent import ResourceAgentState
 from interface.objects import ResourceAgentErrorEvent
 
 from mi.dataset.dataset_driver import DriverParameter

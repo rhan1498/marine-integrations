@@ -47,7 +47,8 @@ from mi.instrument.um.thsph.ooicore.driver import THSPHProtocol
 from mi.instrument.um.thsph.ooicore.driver import Prompt
 from mi.instrument.um.thsph.ooicore.driver import NEWLINE
 
-from pyon.agent.agent import ResourceAgentState
+
+from mi.core.instrument.instrument_driver import ResourceAgentState
 
 ###
 #   Driver parameters for the tests

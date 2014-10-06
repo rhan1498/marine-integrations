@@ -39,8 +39,8 @@ from mi.core.instrument.instrument_driver import DriverAsyncEvent, DriverConfigK
 from mi.core.instrument.instrument_driver import DriverConnectionState
 from mi.core.instrument.instrument_driver import DriverProtocolState
 
-from ion.agents.instrument.instrument_agent import InstrumentAgentState
-from ion.agents.instrument.direct_access.direct_access_server import DirectAccessTypes
+#from ion.agents.instrument.instrument_agent import InstrumentAgentState
+#from ion.agents.instrument.direct_access.direct_access_server import DirectAccessTypes
 
 from mi.instrument.subc_control.onecam.ooicore.driver import InstrumentDriver, Command
 from mi.instrument.subc_control.onecam.ooicore.driver import DataParticleType

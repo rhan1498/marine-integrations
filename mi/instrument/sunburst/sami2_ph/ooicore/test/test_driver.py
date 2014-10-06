@@ -36,8 +36,10 @@ from mi.idk.unit_test import AgentCapabilityType
 
 from mi.core.instrument.chunker import StringChunker
 
-from pyon.agent.agent import ResourceAgentEvent
-from pyon.agent.agent import ResourceAgentState
+#from pyon.agent.agent import ResourceAgentEvent
+#from pyon.agent.agent import ResourceAgentState
+from mi.core.instrument.instrument_driver import ResourceAgentEvent
+from mi.core.instrument.instrument_driver import ResourceAgentState
 
 from mi.instrument.sunburst.driver import Prompt
 from mi.instrument.sunburst.driver import SAMI_NEWLINE
