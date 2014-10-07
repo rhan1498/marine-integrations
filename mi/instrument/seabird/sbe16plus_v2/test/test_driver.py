@@ -72,10 +72,6 @@ from mi.core.instrument.instrument_driver import DriverConnectionState
 from mi.core.instrument.instrument_driver import DriverProtocolState
 from mi.core.instrument.instrument_driver import ResourceAgentState
 
-#from pyon.agent.agent import ResourceAgentState
-# from pyon.agent.agent import ResourceAgentEvent
-# from pyon.core.exception import ServerError
-# from pyon.core.exception import Conflict
 
 class SeaBird16plusMixin(DriverTestMixin):
     
