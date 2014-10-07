@@ -40,7 +40,6 @@ from nose.plugins.attrib import attr
 
 # MI logger
 from mi.core.log import get_logger ; log = get_logger()
-#from pyon.agent.agent import ResourceAgentEvent
 from mi.core.instrument.instrument_driver import ResourceAgentEvent
 
 from mi.core.instrument.instrument_driver import DriverAsyncEvent
