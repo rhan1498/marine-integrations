@@ -12,7 +12,6 @@
 __author__ = 'Carlos Rueda'
 __license__ = 'Apache 2.0'
 
-#from pyon.public import log
 from mi.core.log import log
 
 import unittest
@@ -28,26 +27,14 @@ from mock import patch
 #from interface.objects import StreamQuery
 # from interface.services.icontainer_agent import ContainerAgentClient
 # from interface.services.dm.ipubsub_management_service import PubsubManagementServiceClient
-#from pyon.public import StreamSubscriberRegistrar
 #from prototype.sci_data.stream_defs import ctd_stream_definition
-#from pyon.agent.agent import ResourceAgentClient
 from mi.core.agent import ResourceAgentClient
 from interface.objects import AgentCommand
 from mi.core.unit_test import MiIntTestCase
-#from pyon.util.context import LocalContextMixin
 #from mi.core.util.context import LocalContextMixin
-#from pyon.public import CFG
 
 
-#from pyon.event.event import EventSubscriber, EventPublisher
-
-#from pyon.core.exception import InstParameterError
 from mi.core.exceptions import InstParameterError
-
-#from ion.agents.port.logger_process import EthernetDeviceLogger
-# from ion.agents.instrument.instrument_agent import InstrumentAgentState
-# from ion.agents.instrument.driver_int_test_support import DriverIntegrationTestSupport
-# from ion.agents.instrument.taxy_factory import get_taxonomy
 
 from mi.core.instrument.instrument_agent import InstrumentAgentState
 
