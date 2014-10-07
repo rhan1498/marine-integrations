@@ -40,7 +40,6 @@ import unittest
 # 3rd party imports
 from nose.plugins.attrib import attr
 
-#from pyon.agent.agent import ResourceAgentEvent, ResourceAgentState
 from mi.core.instrument.instrument_driver import ResourceAgentEvent, ResourceAgentState
 
 from mi.core.instrument.instrument_driver import DriverAsyncEvent
