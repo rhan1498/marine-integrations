@@ -12,7 +12,6 @@ monkey.patch_all()
 
 import unittest
 
-#from mi.core.unit_test import MiTestCase
 import time
 import json
 import random
