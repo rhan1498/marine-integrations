@@ -42,14 +42,7 @@ class DotNotationGetItem(object):
 class DotList(DotNotationGetItem, list):
     """ Partner class for DotDict; see that for docs. Both are needed to fully support JSON/YAML blocks. """
 
-    #def DotListIterator(list.)
-
     def __iter__(self):
-        """ Monkey-patch the "next" iterator method to return modified versions. This will be slow. """
-        #it = super(DotList, self).__iter__()
-        #it_next = getattr(it, 'next')
-        #setattr(it, 'next', lambda: it_next(it))
-        #return it
         for val in super(DotList, self).__iter__():
             val, converted = self._convert(val)
             yield val
@@ -165,7 +158,6 @@ def simple_deepcopy(coll):
     else:
         return coll
 
-# dict_merge from: http://appdelegateinc.com/blog/2011/01/12/merge-deeply-nested-dicts-in-python/
 
 def quacks_like_dict(object):
     """Check if object is dict-like"""
