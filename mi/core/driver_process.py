@@ -193,7 +193,6 @@ class DriverProcess(object):
             log.warn("no process running")
             return 0
 
-        #ps_process = subprocess.Popen(["ps", "-p", self.getpid(), "-o", "rss,pid"])
         ps_process = subprocess.Popen(["ps", "-o rss,pid", "-p %s" % self.getpid()], stdout=subprocess.PIPE)
         retcode = ps_process.poll()
 
