@@ -246,12 +246,6 @@ class IonIntegrationTestCase(unittest.TestCase):
         self.addCleanup(patcher.stop)
 
     def _patch_out_fail_fast_kill(self):
-        # Not only is this an enormous hack, it doens't work :/
-        # reinvestigate later
-#        def kill(*args, **kwargs):
-#            def call_in_main_context(main_gl):
-#                main_gl.throw(AssertionError("Container.fail_fast trying to terminate OS process, preventing"))
-#            spawn(call_in_main_context, greenlet.getcurrent())
 
         patcher = patch('pyon.container.cc.Container._kill_fast')
         patcher.start()
@@ -315,11 +309,6 @@ class MiUnitTestCase(IonUnitTestCase):
     Base class for most tests in MI.
     """
     pass
-    # def shortDescription(self):
-    #     return None
-    #
-    # def test_verify_service(self):
-    #     pass
 
 class MiTestCase(PyonTestCase):
     """
