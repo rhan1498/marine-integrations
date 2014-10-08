@@ -13,11 +13,9 @@ import json
 from mi.core.instrument.instrument_agent import InstrumentAgentCapability
 from mi.core.instrument.instrument_agent import InstrumentAgentState
 from mi.core.instrument.driver_process import DriverProcessType
-#from mi.core.agent import get_alerts_schema
 
 from interface.objects import DeviceStatusType
 from interface.objects import AggregateStatusType
-from interface.objects import StreamAlertType
 
 
 """
@@ -335,7 +333,6 @@ AGENT_SCHEMA_V1 = {
         "driver_config" : DRIVER_CONFIG,
         "comms_config" : COMMS_CONFIG
         },
-    #"alert_defs" : ALERTS
     }
 
 def get_schema():
