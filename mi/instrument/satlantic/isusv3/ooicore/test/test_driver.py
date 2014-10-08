@@ -46,8 +46,6 @@ from mi.idk.unit_test import InstrumentDriverQualificationTestCase
 
 from interface.objects import AgentCommand
 
-#from prototype.sci_data.stream_defs import ctd_stream_definition
-
 from mi.core.common import BaseEnum
 
 from mi.core.instrument.data_particle import DataParticleKey, DataParticleValue
