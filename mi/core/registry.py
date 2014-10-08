@@ -7,9 +7,6 @@ from copy import deepcopy
 
 from mi.core.exceptions import NotFound
 
-#import interface.objects
-#import interface.messages
-
 
 enum_classes = {}
 model_classes = {}
