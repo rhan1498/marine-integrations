@@ -14,22 +14,11 @@ import sys
 from types import MethodType
 import threading
 
-#from pyon.core import bootstrap, exception
 from mi.core import bootstrap, exceptions
 
-#from pyon.core.bootstrap import CFG, IonObject
 from mi.core.bootstrap import CFG, IonObject
 
-#from pyon.core.exception import ExceptionFactory, IonException, BadRequest
 from mi.core.exceptions import ExceptionFactory, IonException, BadRequest
-
-# from pyon.net.channel import ChannelClosedError, PublisherChannel, ListenChannel, SubscriberChannel, ServerChannel, BidirClientChannel
-# from pyon.core.interceptor.interceptor import Invocation, process_interceptors
-# from pyon.util.containers import get_ion_ts, get_ion_ts_millis
-# from pyon.util.log import log
-# from pyon.net.transport import NameTrio, BaseTransport
-# from pyon.util.sflow import SFlowManager
-
 
 
 # create special logging category for RPC message tracking
