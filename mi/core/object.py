@@ -8,9 +8,6 @@ import re
 import inspect
 from collections import OrderedDict, Mapping, Iterable
 
-#from pyon.util.log import log
-#from pyon.core.exception import BadRequest
-
 from mi.core.log import log
 from mi.core.exceptions import BadRequest
 
@@ -33,12 +30,6 @@ class IonObjectBase(object):
 
         # This is a more eye pleasing variant but does not eval
         return "%s(%s)" % (self.__class__.__name__, ds)
-
-        # This is a correct variant that can be evaled and requires the class imported
-        #return "%s(**%s)" % (self.__class__.__name__, ds)
-
-        # This is a longer correct variant that can be evaled and requires the IonObject imported
-        #return "IonObject('%s', %s)" % (self.__class__.__name__, ds)
 
     def __repr__(self):
         return self.__str__()
@@ -105,10 +96,7 @@ class IonObjectBase(object):
 
             # Basic type checking
             field_val = fields[key]
-            #if 'decorators' in schema_val:
-                #log.debug("Validating %s: %s: %s: %s" % (key, schema_val["type"], schema_val["decorators"], str(field_val)))
-            #else:
-                #log.debug("Validating %s: %s: %s" % (key, schema_val["type"], str(field_val)))
+
             if type(field_val).__name__ != schema_val['type']:
 
                 # if the schema doesn't define a type, we can't very well validate it
@@ -147,11 +135,9 @@ class IonObjectBase(object):
                     else:
                         continue
 
-                # TODO work around for msgpack issue
                 if type(field_val) == tuple and schema_val['type'] == 'list':
                     continue
 
-                # TODO remove this at some point
                 if isinstance(field_val, IonObjectBase) and schema_val['type'] == 'dict':
                     log.warn('TODO: Please convert generic dict attribute type to abstract type for field "%s.%s"' % (type(self).__name__, key))
                     continue
@@ -367,7 +353,6 @@ def walk(o, cb, modify_key_value = 'value'):
         if modify_key_value = 'key_value', callback will modify both keys and values
         else callback will modify only values
 
-    @TODO move to a general utils area?
     """
     newo = cb(o)
 
@@ -382,7 +367,6 @@ def walk(o, cb, modify_key_value = 'value'):
         return [walk(x, cb, modify_key_value) for x in newo]
     elif isinstance(newo, IonObjectBase):
         # IOs are not iterable and are a huge pain to make them look iterable, special casing is fine then
-        # @TODO consolidate with _validate method in IonObjectBase
         fields, set_fields = newo.__dict__, newo._schema
 
         for fieldname in set_fields:
