@@ -83,22 +83,13 @@ from mi.core.tcp_client import TcpClient
 from mi.core.log import get_logger ; log = get_logger()
 from interface.objects import AgentCommand
 
-#from ion.agents.instrument.instrument_agent import InstrumentAgentState
 from mi.core.instrument.instrument_agent import InstrumentAgentState
 
-#from ion.agents.instrument.direct_access.direct_access_server import DirectAccessTypes
 from mi.core.direct_access_server import DirectAccessTypes
 from mi.core.instrument.instrument_driver import DriverEvent
 
 from mi.core.instrument.instrument_driver import DriverProtocolState
-#from ion.services.dm.utility.granule.record_dictionary import RecordDictionaryTool
 
-
-
-# from prototype.sci_data.stream_parser import PointSupplementStreamParser
-# from prototype.sci_data.constructor_apis import PointSupplementConstructor
-# from prototype.sci_data.stream_defs import ctd_stream_definition
-# from prototype.sci_data.stream_defs import SBE37_CDM_stream_definition
 import numpy
 
 
