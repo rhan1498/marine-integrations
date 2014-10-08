@@ -172,30 +172,3 @@ class ThreadSafeFSM(InstrumentFSM):
         return retval
 
 
-"""
-import gevent
-from gevent.coros import RLock
-
-r = RLock()
-
-
-def gfunc(name):
-
-    lock = r.acquire(blocking=False)
-    if not lock:
-        while not lock:
-            gevent.sleep(1)
-            lock = r.acquire(blocking=False)
-    print 'worker %s returned retval %s' % (name, str(lock))
-    x = 0
-    while x < 5:
-        gevent.sleep(1)
-        print 'worker %s count %i' % (name, x)
-        x += 1
-    r.release()
-
-
-gl1 = gevent.spawn(gfunc,'one')
-gl2 = gevent.spawn(gfunc,'two')
-gevent.joinall([gl1, gl2])
-"""
