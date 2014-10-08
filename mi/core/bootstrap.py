@@ -10,7 +10,7 @@ import sys
 from ooi.logging import log
 from mi.core import log as logutil
 
-#import pyon
+
 # NOTE: no other imports inside pyon
 
 # @WARN: GLOBAL STATE
@@ -32,7 +32,7 @@ _service_registry = None
 
 # The global pyon configuration object (DotDict)
 # Note: it only contains values after bootstrap_pyon was called
-#from pyon.util.containers import DotDict
+
 from mi.core.containers import DotDict
 CFG = DotDict()
 
@@ -119,14 +119,12 @@ def get_sys_name():
         set_sys_name(cfg_sys_name)
         return cfg_sys_name
     elif is_testing():
-#    if is_testing():
         # If no sysname is specified and we are testing, create a unique one
         testing_sys_name = "ion_test_%s" % str(uuid.uuid4())[0:6]
         set_sys_name(testing_sys_name)
         return testing_sys_name
     else:
         # If no sysname is specified and we are standalone, use a hostname derived sysname
-        #from pyon.util.containers import get_default_sysname
         from mi.core.containers import get_default_sysname
         default_sys_name = get_default_sysname()
         set_sys_name(default_sys_name)
@@ -179,7 +177,6 @@ def bootstrap_pyon(logging_config_override=None, pyon_cfg=None):
     _obj_registry = IonObjectRegistry()
 
     # SERVICES. Service definitions
-    # TODO: change the following to read service definitions from directory and import selectively
     from mi.core.service import IonServiceRegistry
     global _service_registry
     _service_registry = IonServiceRegistry()
