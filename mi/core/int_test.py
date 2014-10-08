@@ -7,12 +7,8 @@ import unittest
 import os
 from gevent import greenlet, spawn
 
-#from pyon.container.cc import Container
-#from pyon.core import bootstrap
-from pyon.core.bootstrap import bootstrap_pyon, CFG
-from pyon.core.interfaces.interfaces import InterfaceAdmin
-#from pyon.util.log import log
-from pyon.util.file_sys import FileSystem
+
+from mi.core.bootstrap import bootstrap_pyon, CFG
 
 from mi.core import bootstrap
 from mi.core.bootstrap import bootstrap_pyon, CFG
@@ -25,7 +21,6 @@ def pre_initialize_ion():
     # Make sure this happens only once
     iadm = InterfaceAdmin(bootstrap.get_sys_name(), config=CFG)
     iadm.create_core_datastores()
-    #iadm.store_config(CFG)
     iadm.store_interfaces(idempotent=True)
     iadm.close()
 
@@ -66,59 +61,11 @@ class IonIntegrationTestCase(unittest.TestCase):
     def run(self, result=None):
         unittest.TestCase.run(self, result)
 
-    # def _start_container(self):
-    #     # hack to force queue auto delete on for int tests
-    #     self._turn_on_queue_auto_delete()
-    #     self._patch_out_diediedie()
-    #     self._patch_out_fail_fast_kill()
-    #
-    #     bootstrap.testing_fast = True
-    #
-    #     if os.environ.get('CEI_LAUNCH_TEST', None):
-    #         # Let's force clean again.  The static initializer is causing
-    #         # issues
-    #         #self._force_clean()
-    #         self._patch_out_start_rel()
-    #         from pyon.datastore.datastore_admin import DatastoreAdmin
-    #         from pyon.datastore.datastore_common import DatastoreFactory
-    #         da = DatastoreAdmin(config=CFG)
-    #         da.load_datastore('res/dd')
-    #         # Turn off file system cleaning
-    #         # The child container should NOT clean out the parent's filesystem,
-    #         # they should share like good containers sometimes do
-    #         CFG.container.file_system.force_clean = False
-    #     else:
-    #         # We cannot live without pre-initialized datastores and resource objects
-    #         pre_initialize_ion()
-    #
-    #         # hack to force_clean on filesystem
-    #         try:
-    #             CFG['container']['filesystem']['force_clean'] = True
-    #         except KeyError:
-    #             CFG['container']['filesystem'] = {}
-    #             CFG['container']['filesystem']['force_clean'] = True
-    #
-    #     self.container = None
-    #     self.addCleanup(self._stop_container)
-    #     self.container = Container()
-    #     self.container.start()
-    #
-    #     bootstrap.testing_fast = False
-
-
-    # def _stop_container(self):
-    #     bootstrap.testing_fast = True
-    #     if self.container:
-    #         self.container.stop()
-    #         self.container = None
-    #     self._force_clean()         # deletes only
-    #     bootstrap.testing_fast = False
 
     def _start_tracer_log(self, config=None):
         """Temporarily enables tracer log and configures it until end of test (cleanUp)"""
         if not self.container:
             return
-        from pyon.util import tracer
 
         if not tracer.trace_data["config"].get("log_trace", False):
             tracer_cfg_old = tracer.trace_data["config"]
@@ -162,10 +109,6 @@ class IonIntegrationTestCase(unittest.TestCase):
     def _patch_out_fail_fast_kill(self):
         # Not only is this an enormous hack, it doens't work :/
         # reinvestigate later
-#        def kill(*args, **kwargs):
-#            def call_in_main_context(main_gl):
-#                main_gl.throw(AssertionError("Container.fail_fast trying to terminate OS process, preventing"))
-#            spawn(call_in_main_context, greenlet.getcurrent())
 
         patcher = patch('pyon.container.cc.Container._kill_fast')
         patcher.start()
