@@ -20,15 +20,6 @@ USAGE:
 __author__ = 'Roger Unwin'
 __license__ = 'Apache 2.0'
 
-#test_startup_params
-#test_scheduled_clock_sync_autosample
-#test_commands
-#test_set_sampling
-#test_set
-#test_scheduled_device_status_autosample
-#test_scheduled_device_configuration_autosample
-#test_autosample_particle_generation
-
 
 import unittest
 from gevent import monkey; monkey.patch_all()
