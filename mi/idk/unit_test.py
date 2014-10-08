@@ -6,9 +6,6 @@
 @brief Base classes for instrument driver tests.
 """
 
-#from mock import patch                  unused import
-#from pyon.core.bootstrap import CFG     unused import
-
 import subprocess
 import re
 import gc
@@ -23,9 +20,7 @@ from sets import Set
 # couchdb if we are testing. Since we don't care about couchdb for the most
 # part we can ignore this. See initialize_ion_int_tests() for implementation.
 # If you DO care about couch content make sure you do a force_clean when needed.
-#from pyon.core import bootstrap   richard commented out
 
-#bootstrap.testing = False         richard commented out
 
 # Import pyon first for monkey patching.
 from mi.core.log import get_logger
@@ -37,7 +32,7 @@ import json
 
 from pprint import PrettyPrinter
 
-#from pyon.core.exception import IonException, ExceptionFactory
+
 from mock import Mock
 from mi.core.unit_test import MiIntTestCase
 from mi.core.unit_test import MiUnitTest
@@ -53,11 +48,10 @@ from mi.core.instrument.protocol_param_dict import ParameterDictKey
 from mi.core.instrument.protocol_param_dict import ParameterDictType
 from mi.core.instrument.protocol_cmd_dict import CommandDictKey
 from mi.core.instrument.driver_dict import DriverDictKey
-#from ion.agents.port.port_agent_process import PortAgentProcessType
+
 from interface.objects import AgentCapability
 from interface.objects import CapabilityType
 
-#from ion.agents.instrument.driver_process import DriverProcess, DriverProcessType
 from mi.core.driver_process import DriverProcess, DriverProcessType
 
 from interface.objects import AgentCommandResult
@@ -96,17 +90,12 @@ from mi.core.common import BaseEnum
 from mi.core.driver_scheduler import DriverSchedulerConfigKey, DriverScheduler
 from mi.core.driver_scheduler import TriggerType
 
-#from ion.agents.instrument.direct_access.direct_access_server import DirectAccessTypes
-#from ion.agents.port.port_agent_process import PortAgentProcess
 
-#from pyon.core.exception import Conflict
-#from pyon.core.exception import ResourceError, BadRequest, Timeout, ServerError
 from mi.core.exceptions import Conflict
 from mi.core.exceptions import ResourceError, BadRequest, Timeout, ServerError
 from mi.core.instrument.instrument_driver import ResourceAgentState
 from mi.core.instrument.instrument_driver import ResourceAgentEvent
-#from pyon.agent.agent import ResourceAgentState
-#from pyon.agent.agent import ResourceAgentEvent
+
 from ooi.logging import log
 
 # Do not remove this import.  It is for package building.
@@ -117,11 +106,7 @@ GO_ACTIVE_TIMEOUT = 900
 GET_TIMEOUT = 900
 SET_TIMEOUT = 900
 EXECUTE_TIMEOUT = 900
-#AGENT_DISCOVER_TIMEOUT=180
-#GO_ACTIVE_TIMEOUT=400
-#GET_TIMEOUT=180
-#SET_TIMEOUT=180
-#EXECUTE_TIMEOUT=180
+
 SAMPLE_RAW_DATA = "Iam Apublished Message"
 
 LOCALHOST = 'localhost'
