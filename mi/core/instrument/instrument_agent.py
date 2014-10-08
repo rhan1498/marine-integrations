@@ -11,19 +11,6 @@ This resource fronts instruments and instrument drivers one-to-one in ION.
 __author__ = 'Edward Hunter'
 
 
-# Pyon imports
-# from pyon.public import IonObject, log, RT, PRED, LCS, OT, CFG
-# from pyon.agent.agent import ResourceAgent
-# from pyon.agent.agent import ResourceAgentEvent
-# from pyon.agent.agent import ResourceAgentState
-# from pyon.agent.agent import ResourceAgentStreamStatus
-#from pyon.util.containers import get_ion_ts
-#from pyon.core.governance import ORG_MANAGER_ROLE, GovernanceHeaderValues, has_org_role, get_valid_resource_commitments
-#from ion.services.sa.observatory.observatory_management_service import INSTRUMENT_OPERATOR_ROLE, OBSERVATORY_OPERATOR_ROLE
-#from pyon.public import IonObject
-
-
-
 
 from mi.core.agent import ResourceAgent
 from mi.core.instrument.instrument_driver import ResourceAgentEvent
@@ -31,18 +18,6 @@ from mi.core.instrument.instrument_driver import ResourceAgentState
 from mi.core.agent import ResourceAgentStreamStatus
 from mi.core.containers import get_ion_ts
 
-
-
-# Pyon exceptions.
-# from pyon.core.exception import IonException, Inconsistent
-# from pyon.core.exception import BadRequest
-# from pyon.core.exception import Conflict
-# from pyon.core.exception import Timeout
-# from pyon.core.exception import NotFound
-# from pyon.core.exception import ServerError
-# from pyon.core.exception import ResourceError
-# from pyon.core.exception import InstDriverClientTimeoutError
-# from pyon.core.exception import InstStateError
 
 from mi.core.exceptions import IonException, Inconsistent
 from mi.core.exceptions import BadRequest
@@ -55,7 +30,6 @@ from mi.core.exceptions import InstDriverClientTimeoutError
 from mi.core.exceptions import InstStateError
 
 from mi.core.instrument_fsm import FSMLockedError
-#from pyon.agent.instrument_fsm import FSMLockedError
 
 # Standard imports.
 import socket
@@ -65,14 +39,7 @@ import copy
 # Packages
 import gevent
 
-# ION imports.
-# from ion.agents.instrument.driver_process import DriverProcess
-# from ion.agents.instrument.common import BaseEnum
-# from ion.agents.instrument.direct_access.direct_access_server import DirectAccessTypes
-# from ion.agents.instrument.direct_access.direct_access_server import DirectAccessServer
-# from ion.agents.instrument.direct_access.direct_access_server import SessionCloseReasons
-#from ion.agents.agent_stream_publisher import AgentStreamPublisher
-#from ion.agents.agent_alert_manager import AgentAlertManager
+
 
 from mi.core.instrument.driver_process import DriverProcess
 from mi.core.common import BaseEnum
@@ -80,9 +47,6 @@ from mi.core.direct_access_server import DirectAccessTypes
 from mi.core.direct_access_server import DirectAccessServer
 from mi.core.direct_access_server import SessionCloseReasons
 
-
-# MI imports
-#from ion.core.includes.mi import DriverAsyncEvent
 
 from interface.objects import AgentCommand
 
@@ -149,7 +113,6 @@ class ResourceInterfaceCapability(BaseEnum):
     GET_RESOURCE_STATE = ResourceAgentEvent.GET_RESOURCE_STATE
     EXECUTE_RESOURCE = ResourceAgentEvent.EXECUTE_RESOURCE
 
-#from ion.agents.instrument.schema import get_schema
 from mi.core.schema import get_schema
 
 class InstrumentAgent(ResourceAgent):
@@ -267,7 +230,6 @@ class InstrumentAgent(ResourceAgent):
         self._initial_state = ResourceAgentState.UNINITIALIZED
 
     def _build_stream_publisher(self):
-        #return AgentStreamPublisher(self)
         pass
 
     def on_init(self):
@@ -285,9 +247,6 @@ class InstrumentAgent(ResourceAgent):
         # Set up streams.
         self._asp = self._build_stream_publisher()
         self._agent_schema['streams'] = copy.deepcopy(self.aparam_streams)
-        
-        # Set up alert manager.
-        #self._aam = AgentAlertManager(self)
 
         # Superclass on_init attemtps state restore.
         super(InstrumentAgent, self).on_init()        
@@ -379,9 +338,6 @@ class InstrumentAgent(ResourceAgent):
     # Governance interfaces
     ##############################################################
 
-    #TODO - When/If the Instrument and Platform agents are dervied from a
-    # common device agent class, then relocate to the parent class and share
-
     def check_if_direct_access_mode(self, message, headers):
         try:
             #Putting in a hack for testing
@@ -409,12 +365,7 @@ class InstrumentAgent(ResourceAgent):
         @return:
         '''
 
-
-        try:
-            #gov_values = GovernanceHeaderValues(headers, resource_id_required=False)
-            gov_values = 1
-        except Inconsistent, ex:
-            return False, ex.message
+        gov_values = 1
 
         log.debug("check_resource_operation_policy: actor info: %s %s %s", gov_values.actor_id, gov_values.actor_roles, gov_values.resource_id)
 
@@ -478,11 +429,8 @@ class InstrumentAgent(ResourceAgent):
         @param headers:
         @return:
         """
-        try:
-            #gov_values = GovernanceHeaderValues(headers=headers, process=process)
-            gov_values = 1
-        except Inconsistent, ex:
-            return False, ex.message
+
+        gov_values = 1
 
         log.debug("check_agent_operation_policy: actor info: %s %s %s", gov_values.actor_id, gov_values.actor_roles, gov_values.resource_id)
 
@@ -501,8 +449,6 @@ class InstrumentAgent(ResourceAgent):
         if coms is None and has_org_role(gov_values.actor_roles ,self._get_process_org_governance_name(), INSTRUMENT_OPERATOR_ROLE):
             return False, '%s(%s) has been denied since the user %s has not acquired the resource exclusively' % (resource_name, gov_values.op, gov_values.actor_id)
 
-        #TODO - this commitment might not be with the right Org - may have to relook at how this is working in R3.
-        #Iterrate over commitments and look to see if actor or others have an exclusive access
         for com in coms:
 
             log.debug("checking commitments: actor_id: %s exclusive: %s",com.consumer,  str(com.commitment.exclusive))
@@ -635,7 +581,6 @@ class InstrumentAgent(ResourceAgent):
         self._start_driver(self._dvr_config)
 
         # Set the driver name aparam.
-        #dvr_egg': 'http://sddevrepo.oceanobservatories.org/releases/seabird_sbe37smb_ooicore-0.1.5-py2.7.egg'
         if 'dvr_egg' in self._dvr_config:
             self.aparam_driver_name = self._dvr_config['dvr_egg'].split('/')[-1]
 
@@ -666,17 +611,6 @@ class InstrumentAgent(ResourceAgent):
             self._stop_driver(True)
             self._on_driver_comms_error('_handler_inactive_go_active')
             return (ResourceAgentState.UNINITIALIZED, None)
-
-        """
-        if isinstance(resource_schema, str):
-            resource_schema = json.loads(resource_schema)
-            if isinstance(resource_schema, dict):
-                self._resource_schema = resource_schema
-            else:
-                self._resource_schema = {}
-        else:
-            self._resource_schema = {}
-        """
 
         # Reset the connection id and index.
         self._asp.reset_connection()
