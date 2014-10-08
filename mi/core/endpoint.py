@@ -239,7 +239,6 @@ class BaseEndpoint(object):
     node = None     # connection to the broker, basically
 
     # Endpoints
-    # TODO: Make weakref or replace entirely
     endpoint_by_name = {}
     _interceptors = None
 
@@ -247,12 +246,6 @@ class BaseEndpoint(object):
 
         self.node = node
         self._transport = transport
-
-#        # @TODO: MOVE THIS
-#        if name in self.endpoint_by_name:
-#            self.endpoint_by_name[name].append(self)
-#        else:
-#            self.endpoint_by_name[name] = [self]
 
     @classmethod
     def _get_container_instance(cls):
