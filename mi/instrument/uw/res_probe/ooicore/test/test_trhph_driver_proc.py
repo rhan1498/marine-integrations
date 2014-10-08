@@ -20,8 +20,6 @@ from mi.instrument.uw.res_probe.ooicore.test.driver_test_mixin import DriverTest
 from mi.core.instrument.instrument_driver import InstrumentDriver
 
 from mi.core.exceptions import InstDriverError
-#from ion.agents.instrument.driver_int_test_support import DriverIntegrationTestSupport
-#from mi.core.instrument.driver_int_test_support import DriverIntegrationTestSupport
 
 from nose.plugins.attrib import attr
 
