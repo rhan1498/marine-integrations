@@ -25,8 +25,8 @@ from mi.core.instrument.instrument_driver import DriverEvent
 from mi.idk.exceptions import SampleTimeout
 from mi.core.instrument.data_particle import DataParticleKey
 
-from pyon.core.exception import Timeout
-from pyon.agent.agent import ResourceAgentState
+from mi.core.exceptions import Timeout
+from mi.core.instrument.instrument_driver import ResourceAgentState
 from interface.objects import ResourceAgentConnectionLostErrorEvent
 from interface.objects import ResourceAgentErrorEvent
 
