@@ -37,7 +37,7 @@ from mi.dataset.parser.velpt_j_cspp import DataParticleType, \
     VelptJCsppMetadataRecoveredDataParticle, VelptJCsppMetadataTelemeteredDataParticle, \
     VelptJCsppInstrumentRecoveredDataParticle, VelptJCsppInstrumentTelemeteredDataParticle
 
-from pyon.agent.agent import ResourceAgentState
+from mi.core.instrument.instrument_driver import ResourceAgentState
 from interface.objects import ResourceAgentErrorEvent
 
 TELEMETERED_DIR = 'tmp/velpt_j/telemetered'
