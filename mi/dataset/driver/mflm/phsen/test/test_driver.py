@@ -19,7 +19,7 @@ import unittest
 import os
 from nose.plugins.attrib import attr
 
-from pyon.agent.agent import ResourceAgentState
+from mi.core.instrument.instrument_driver import ResourceAgentEvent
 from interface.objects import ResourceAgentErrorEvent
 from interface.objects import ResourceAgentConnectionLostErrorEvent
 
