@@ -19,7 +19,7 @@ import os
 from mi.idk.config import Config
 
 from nose.plugins.attrib import attr
-from pyon.agent.agent import ResourceAgentState
+from mi.core.instrument.instrument_driver import ResourceAgentState
 from interface.objects import ResourceAgentErrorEvent
 
 from mi.core.log import get_logger
