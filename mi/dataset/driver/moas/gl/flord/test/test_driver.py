@@ -35,7 +35,7 @@ from mi.dataset.driver.moas.gl.flord.driver import FLORDDataSetDriver
 from mi.dataset.driver.moas.gl.flord.driver import DataTypeKey
 
 from mi.dataset.parser.glider import FlordTelemeteredDataParticle, FlordRecoveredDataParticle, DataParticleType
-from pyon.agent.agent import ResourceAgentState
+from mi.core.instrument.instrument_driver import ResourceAgentState
 
 from interface.objects import ResourceAgentErrorEvent
 
