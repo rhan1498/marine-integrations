@@ -16,7 +16,7 @@ __author__ = 'cgoodrich'
 __license__ = 'Apache 2.0'
 
 from nose.plugins.attrib import attr
-from pyon.agent.agent import ResourceAgentState
+from mi.core.instrument.instrument_driver import ResourceAgentState
 from interface.objects import ResourceAgentErrorEvent
 import os
 import hashlib
