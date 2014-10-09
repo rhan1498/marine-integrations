@@ -30,7 +30,7 @@ from mi.idk.dataset.unit_test import DataSetIntegrationTestCase
 from mi.idk.dataset.unit_test import DataSetQualificationTestCase
 from mi.dataset.dataset_driver import DataSourceConfigKey, DataSetDriverConfigKeys
 from mi.dataset.dataset_driver import DriverParameter
-from pyon.agent.agent import ResourceAgentState
+from mi.core.instrument.instrument_driver import ResourceAgentState
 from interface.objects import ResourceAgentErrorEvent
 
 from mi.dataset.driver.issmcnsm.dosta.driver import IssmCnsmDOSTADDataSetDriver
