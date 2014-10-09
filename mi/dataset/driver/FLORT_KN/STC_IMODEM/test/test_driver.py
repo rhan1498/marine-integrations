@@ -37,7 +37,7 @@ from mi.dataset.parser.flort_kn__stc_imodem import \
     Flort_kn_stc_imodemParserDataParticleRecovered, \
     DataParticleType
 
-from pyon.agent.agent import ResourceAgentState
+from mi.core.instrument.instrument_driver import ResourceAgentState
 from interface.objects import ResourceAgentErrorEvent
 
 DIR_FLORT_KN_LIVE = '/tmp/flort/dsatest1'
