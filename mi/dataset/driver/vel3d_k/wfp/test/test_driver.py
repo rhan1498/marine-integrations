@@ -40,7 +40,7 @@ from mi.dataset.dataset_driver import \
     DataSetDriverConfigKeys, \
     DriverParameter
 
-from pyon.agent.agent import ResourceAgentState
+from mi.core.instrument.instrument_driver import ResourceAgentState
 from interface.objects import ResourceAgentErrorEvent
 
 from mi.dataset.driver.vel3d_k.wfp.driver import \
