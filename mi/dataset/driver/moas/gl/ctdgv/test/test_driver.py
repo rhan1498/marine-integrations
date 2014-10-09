@@ -39,7 +39,7 @@ from mi.dataset.driver.moas.gl.ctdgv.driver import DataTypeKey
 
 from mi.dataset.parser.glider import CtdgvTelemeteredDataParticle, CtdgvRecoveredDataParticle, DataParticleType
 
-from pyon.agent.agent import ResourceAgentState
+from mi.core.instrument.instrument_driver import ResourceAgentState
 
 from interface.objects import ResourceAgentErrorEvent
 
