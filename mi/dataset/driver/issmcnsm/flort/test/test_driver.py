@@ -32,7 +32,7 @@ from mi.idk.dataset.unit_test import DataSetQualificationTestCase
 from mi.dataset.dataset_driver import DataSourceConfigKey, DataSetDriverConfigKeys
 from mi.dataset.dataset_driver import DriverParameter
 
-from pyon.agent.agent import ResourceAgentState
+from mi.core.instrument.instrument_driver import ResourceAgentState
 
 from mi.dataset.driver.issmcnsm.flort.driver import IssmCnsmFLORTDDataSetDriver
 from mi.dataset.parser.issmcnsm_flortd import Issmcnsm_flortdParserDataParticle
