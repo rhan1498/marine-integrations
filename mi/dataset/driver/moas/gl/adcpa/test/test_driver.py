@@ -39,7 +39,7 @@ from mi.dataset.dataset_driver import \
     DataSetDriverConfigKeys, \
     DriverParameter
 
-from pyon.agent.agent import ResourceAgentState
+from mi.core.instrument.instrument_driver import ResourceAgentState
 
 DIR_ADCPA_LIVE = '/tmp/dsatest1'
 DIR_ADCPA_RECOVERED = '/tmp/dsatest2'
