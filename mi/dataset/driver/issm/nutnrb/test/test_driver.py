@@ -43,7 +43,7 @@ from mi.dataset.dataset_driver import DriverParameter, DriverStateKey
 from mi.core.instrument.instrument_driver import DriverEvent
 from mi.dataset.parser.nutnrb import NutnrbDataParticle
 from mi.dataset.driver.issm.nutnrb.driver import IssmRiNUTNRBDataSetDriver
-from pyon.agent.agent import ResourceAgentState
+from mi.core.instrument.instrument_driver import ResourceAgentState
 from interface.objects import CapabilityType
 from interface.objects import AgentCapability
 from interface.objects import ResourceAgentErrorEvent
