@@ -29,7 +29,7 @@ from mi.dataset.parser.vel3d_a_mmp_cds import Vel3dAMmpCdsParserDataParticle, Da
 
 from nose.plugins.attrib import attr
 
-from pyon.agent.agent import ResourceAgentState
+from mi.core.instrument.instrument_driver import ResourceAgentState
 from interface.objects import ResourceAgentErrorEvent
 
 # Fill in driver details
