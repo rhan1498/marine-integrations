@@ -35,7 +35,8 @@ from mi.dataset.driver.moas.gl.parad.driver import DataTypeKey
 from mi.dataset.driver.moas.gl.parad.driver import PARADDataSetDriver
 
 from mi.dataset.parser.glider import ParadTelemeteredDataParticle, ParadRecoveredDataParticle, DataParticleType
-from pyon.agent.agent import ResourceAgentState
+
+from mi.core.instrument.instrument_driver import ResourceAgentState
 
 from interface.objects import ResourceAgentErrorEvent
 
