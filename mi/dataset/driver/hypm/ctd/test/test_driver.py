@@ -37,7 +37,7 @@ from mi.dataset.dataset_driver import DriverParameter
 from mi.dataset.driver.hypm.ctd.driver import HypmCTDPFDataSetDriver
 
 from mi.dataset.parser.ctdpf import CtdpfParserDataParticle
-from pyon.agent.agent import ResourceAgentState
+from mi.core.instrument.instrument_driver import ResourceAgentState
 
 from interface.objects import ResourceAgentErrorEvent
 
