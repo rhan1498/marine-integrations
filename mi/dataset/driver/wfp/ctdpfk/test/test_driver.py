@@ -48,7 +48,7 @@ from mi.dataset.parser.ctdpfk import CtdpfkParserDataParticle
 from mi.dataset.driver.wfp.ctdpfk.driver import WfpCTDPFKDataSetDriver
 from mi.dataset.parser.test.test_ctdpfk import CtdpfkParserUnitTestCase
 
-from pyon.agent.agent import ResourceAgentState
+from mi.core.instrument.instrument_driver import ResourceAgentState
 
 from interface.objects import CapabilityType
 from interface.objects import AgentCapability
