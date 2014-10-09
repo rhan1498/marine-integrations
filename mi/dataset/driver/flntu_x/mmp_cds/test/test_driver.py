@@ -36,7 +36,7 @@ from mi.dataset.driver.flntu_x.mmp_cds.driver import FlntuXMmpCdsDataSetDriver, 
 from mi.dataset.parser.flntu_x_mmp_cds import FlntuXMmpCdsParserDataParticle
 from mi.dataset.parser.flcdr_x_mmp_cds import FlcdrXMmpCdsParserDataParticle
 
-from pyon.agent.agent import ResourceAgentState
+from mi.core.instrument.instrument_driver import ResourceAgentState
 from interface.objects import ResourceAgentErrorEvent
 
 DIR_FLNTU = '/tmp/flntu/flntu'
