@@ -37,7 +37,7 @@ from mi.dataset.parser.flort_dj_cspp import DataParticleType, \
     FlortDjCsppMetadataRecoveredDataParticle, FlortDjCsppMetadataTelemeteredDataParticle, \
     FlortDjCsppInstrumentRecoveredDataParticle, FlortDjCsppInstrumentTelemeteredDataParticle
 
-from pyon.agent.agent import ResourceAgentState
+from mi.core.instrument.instrument_driver import ResourceAgentState
 from interface.objects import ResourceAgentErrorEvent
 
 TELEMETERED_DIR = 'tmp/flort_dj/telemetered'
