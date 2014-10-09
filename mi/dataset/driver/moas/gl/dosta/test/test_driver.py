@@ -38,7 +38,7 @@ from mi.dataset.driver.moas.gl.dosta.driver import DOSTADataSetDriver
 
 from mi.dataset.parser.glider import DostaTelemeteredDataParticle, DostaRecoveredDataParticle, DataParticleType
 
-from pyon.agent.agent import ResourceAgentState
+from mi.core.instrument.instrument_driver import ResourceAgentState
 
 from interface.objects import ResourceAgentErrorEvent
 
