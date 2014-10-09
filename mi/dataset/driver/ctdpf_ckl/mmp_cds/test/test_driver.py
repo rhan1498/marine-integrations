@@ -29,7 +29,7 @@ from mi.dataset.parser.ctdpf_ckl_mmp_cds import CtdpfCklMmpCdsParserDataParticle
 
 from nose.plugins.attrib import attr
 
-from pyon.agent.agent import ResourceAgentState
+from mi.core.instrument.instrument_driver import ResourceAgentState
 from interface.objects import ResourceAgentErrorEvent
 
 # Fill in driver details
