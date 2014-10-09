@@ -48,7 +48,7 @@ from mi.dataset.parser.wfp_parser import WfpVel3dkDataParticle
 from mi.dataset.parser.test.test_wfp_parser import WfpParserUnitTestCase
 from mi.dataset.driver.wfp.vel3dk.driver import WfpVel3dkDataSetDriver
 
-from pyon.agent.agent import ResourceAgentState
+from mi.core.instrument.instrument_driver import ResourceAgentState
 
 from interface.objects import CapabilityType
 from interface.objects import AgentCapability
