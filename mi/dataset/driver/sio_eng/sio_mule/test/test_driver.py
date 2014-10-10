@@ -18,7 +18,7 @@ __license__ = 'Apache 2.0'
 import os
 from nose.plugins.attrib import attr
 
-from pyon.agent.agent import ResourceAgentState
+from mi.core.instrument.instrument_driver import ResourceAgentState
 from mi.idk.exceptions import SampleTimeout
 
 from mi.core.log import get_logger

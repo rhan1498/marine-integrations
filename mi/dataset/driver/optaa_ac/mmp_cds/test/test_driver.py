@@ -28,7 +28,7 @@ from mi.dataset.dataset_driver import DriverParameter, DataSourceConfigKey, Data
 from mi.dataset.driver.optaa_ac.mmp_cds.driver import OptaaAcMmpCdsDataSetDriver
 from mi.dataset.parser.optaa_ac_mmp_cds import OptaaAcMmpCdsParserDataParticle, DataParticleType
 
-from pyon.agent.agent import ResourceAgentState
+from mi.core.instrument.instrument_driver import ResourceAgentState
 from interface.objects import ResourceAgentErrorEvent
 
 # Driver details

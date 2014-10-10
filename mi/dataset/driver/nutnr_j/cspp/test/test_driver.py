@@ -20,7 +20,7 @@ import unittest
 from nose.plugins.attrib import attr
 from mock import Mock
 
-from pyon.agent.agent import ResourceAgentState
+from mi.core.instrument.instrument_driver import ResourceAgentState
 from interface.objects import ResourceAgentErrorEvent
 
 from mi.core.log import get_logger ; log = get_logger()
